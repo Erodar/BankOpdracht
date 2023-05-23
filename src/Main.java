@@ -31,6 +31,7 @@ public class Main {
         System.out.println(bank.currency_exchange("NL01ABCD1234567890", "Won"));
 
         System.out.println(TransferHistory.display_history("NL02EFGH1234567890"));
+        System.out.println(TransferHistory.display_history("NL01ABCD1234567890"));
     }
 
 }
