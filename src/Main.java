@@ -21,6 +21,7 @@ public class Main {
 //         Geld opnemen
 
         bank.withdraw("NL02EFGH1234567890", 200.0);
+        bank.deposit("NL01ABCD1234567890", 250.5);
 
 //         Saldo controleren
 
