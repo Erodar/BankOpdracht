@@ -18,7 +18,7 @@ public class Bank {
     public void Create_Account(String Account_Number, Double Initial_Deposit) {
         BankAccount Account = new BankAccount(Account_Number, Initial_Deposit);
         map.put(Account_Number, Account);
-        TransferHistory.transfer_save(Account_Number, Initial_Deposit, "Initial Deposit");
+        BankAccount.transfer_save(Account_Number, Initial_Deposit, "Initial Deposit");
     }
 
     //returns the BankAccount object attached to an account number. If it doesn't exist, crashes.
@@ -33,21 +33,21 @@ public class Bank {
     //uses the getaccount function to access the deposit method of the BankAccount class.
     public void deposit(String Account_Number, Double Deposit) {
         this.getAccount(Account_Number).deposit(Deposit);
-        TransferHistory.transfer_save(Account_Number, Deposit, "Deposit");
+        BankAccount.transfer_save(Account_Number, Deposit, "Deposit");
     }
 
 
     //same as previous, except now it's the withdraw method.
     public void withdraw(String Account_Number, Double Withdrawal) {
         this.getAccount(Account_Number).withdraw(Withdrawal);
-        TransferHistory.transfer_save(Account_Number, Withdrawal, "Withdrawal");
+        BankAccount.transfer_save(Account_Number, Withdrawal, "Withdrawal");
     }
     //for transfers. basically a combination of the last two methods in one.
     public void transfer(String Withdrawal_Account, String Deposit_Account, Double Transfer_Amount) {
         this.getAccount(Withdrawal_Account).withdraw(Transfer_Amount);
-        TransferHistory.transfer_save(Withdrawal_Account, Transfer_Amount, "Withdrawal (Transfer)");
+        BankAccount.transfer_save(Withdrawal_Account, Transfer_Amount, "Withdrawal (Transfer)");
         this.getAccount(Deposit_Account).deposit(Transfer_Amount);
-        TransferHistory.transfer_save(Deposit_Account, Transfer_Amount, "Deposit (Transfer)");
+        BankAccount.transfer_save(Deposit_Account, Transfer_Amount, "Deposit (Transfer)");
     }
 
     //recalculates the amount of money in the account based on the exchange rates defined at the top.
