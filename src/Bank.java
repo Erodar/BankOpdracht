@@ -1,4 +1,6 @@
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 import static java.lang.Double.NaN;
 
@@ -13,6 +15,8 @@ public class Bank {
      */
     public static HashMap<String, Double> currency;
 
+    public static HashMap<Person, BankAccount> AllOwners = new HashMap<>();
+
     static {
         currency = new HashMap<>();
         currency.put("Dollar", 1.08);
@@ -24,10 +28,11 @@ public class Bank {
     /* create a new account as a BankAccount object
      * and send the initial deposit to transfer history
      */
-    public void Create_Account(String Account_Number, Double Initial_Deposit) {
-        BankAccount Account = new BankAccount(Account_Number, Initial_Deposit);
+    public void Create_Account(String Account_Number, Double Initial_Deposit, Person Owner) {
+        BankAccount Account = new BankAccount(Account_Number, Initial_Deposit, Owner);
         map.put(Account_Number, Account);
         BankAccount.transfer_save(Account_Number, Initial_Deposit, "Initial Deposit");
+        AllOwners.put(Owner, Account);
     }
 
     /* returns the BankAccount object attached to an account number.
@@ -35,7 +40,7 @@ public class Bank {
      */
     public BankAccount getAccount(String Account_Number) {
         if (map.get(Account_Number) == null) {
-            return new BankAccount("Does Not Exist", NaN);
+            return new BankAccount(null, NaN, null);
         } else {
             return map.get(Account_Number);
         }
@@ -67,6 +72,26 @@ public class Bank {
     //recalculates the amount of money in the account based on the exchange rates defined at the top.
     public Double currency_exchange(String Account_Number, String Currency_Type) {
         return (this.getAccount(Account_Number).getBalance() * currency.get(Currency_Type));
+    }
+
+    public static Double Find_Balance(Person person) {
+        for (Map.Entry<Person, BankAccount> set : AllOwners.entrySet()) {
+            if (Objects.equals(set.getKey(), person)) {
+                return set.getValue().getBalance();
+            }
+        }
+        return NaN;
+    }
+
+    public static String Find_Richest_Prick() {
+        int BigBalance = 0;
+        String Richest_Person = "No one has an account!";
+        for (Map.Entry<Person, BankAccount> set : AllOwners.entrySet()) {
+            if (set.getValue().Balance > BigBalance) {
+                Richest_Person = set.getValue().AccountOwner.Name;
+            }
+        }
+        return Richest_Person;
     }
 }
 

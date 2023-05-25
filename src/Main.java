@@ -3,12 +3,14 @@ public class Main {
     public static void main(String[] args) {
 
         Bank bank = new Bank();
+        Person Customer1 = new Person("Chris", "1992-06-20", "green", 1.99, "Taken");
+        Person Customer2 = new Person("John", "1995-08-27", "brown", 1.65, "Single");
 
         // Nieuwe rekeningen aanmaken
 
-        bank.Create_Account("NL01ABCD1234567890", 1000.0);
+        bank.Create_Account("NL01ABCD1234567890", 1000.0, Customer1);
 
-        bank.Create_Account("NL02EFGH1234567890", 500.0);
+        bank.Create_Account("NL02EFGH1234567890", 500.0, Customer2);
 
 //         Geld storten
 
@@ -34,5 +36,8 @@ public class Main {
 
         System.out.println(BankAccount.display_history("NL02EFGH1234567890"));
         System.out.println(BankAccount.display_history("NL01ABCD1234567890"));
+        System.out.println(Bank.Find_Balance(Customer1));
+        System.out.println(Person.getLeeftijd(Customer1));
+        System.out.println(Bank.Find_Richest_Prick());
     }
 }

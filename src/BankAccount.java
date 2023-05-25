@@ -10,15 +10,18 @@ public class BankAccount {
     //the balance can be edited in other classes too, though, since there's no reason to make it private.
     private final String AccountNumber;
     public Double Balance;
+    public Person AccountOwner;
+
     //AllTransfers is a hashmap containing the account number and then a list of transfers.
     //Each transfer is also stored as a list, so Transfers is a list of lists.
     public static HashMap<String, ArrayList<ArrayList<String>>> AllTransfers = new HashMap<>();
     public static ArrayList<ArrayList<String>> Transfers = new ArrayList<>();
 
     //BankAccounts only have two attributes, the balance in the account and the account number.
-    public BankAccount(String Account_Number, Double balance) {
+    public BankAccount(String Account_Number, Double balance, Person Owner) {
         this.AccountNumber = Account_Number;
         this.Balance = balance;
+        AccountOwner = Owner;
     }
 
     //commented out because not used; just returns the account number of an object.
@@ -29,7 +32,7 @@ public class BankAccount {
     //returns the balance of an object.
     public Double getBalance() {
         try {
-            return Balance;
+            return this.Balance;
         } catch (RuntimeException e) {
             return (NaN);
         }
@@ -37,10 +40,10 @@ public class BankAccount {
 
     //withdraws money from an account. if there isn't enough money it errors.
     public void withdraw(Double Withdraw_Amount) {
-        if (this.Balance < Withdraw_Amount) {
+        if (Balance < Withdraw_Amount) {
             System.out.println("Your balance is too low. Transaction cancelled.");
         } else {
-            this.Balance -= Withdraw_Amount;
+            Balance -= Withdraw_Amount;
         }
     }
 
@@ -49,7 +52,7 @@ public class BankAccount {
         if (Deposit_Amount < 0) {
             System.out.println("You can't deposit a negative amount. Transaction cancelled.");
         } else {
-            this.Balance += Deposit_Amount;
+            Balance += Deposit_Amount;
         }
     }
 
@@ -98,6 +101,5 @@ public class BankAccount {
         }
         return Account_History;
     }
-
 }
 
