@@ -93,6 +93,21 @@ public class Bank {
         }
         return Richest_Person;
     }
+
+    public static String Bank_Dating_Service() {
+        String lovebirds = "";
+        int lovers = 0;
+        for (Map.Entry<Person, BankAccount> set : AllOwners.entrySet()) {
+            if (Objects.equals(set.getValue().AccountOwner.RelationshipStatus, "Single")) {
+                lovebirds = lovebirds.concat(set.getValue().AccountOwner.Name);
+                lovers++;
+                if (lovers == 2) {
+                    return lovebirds;
+                }
+                lovebirds = lovebirds.concat(" & ");
+            }
+        } return lovebirds;
+    }
 }
 
 

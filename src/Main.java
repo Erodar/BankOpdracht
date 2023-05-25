@@ -5,12 +5,14 @@ public class Main {
         Bank bank = new Bank();
         Person Customer1 = new Person("Chris", "1992-06-20", "green", 1.99, "Taken");
         Person Customer2 = new Person("John", "1995-08-27", "brown", 1.65, "Single");
-
+        Person Customer3 = new Person("Mick", "1995-08-26", "grey", 1.76, "Single");
         // Nieuwe rekeningen aanmaken
 
         bank.Create_Account("NL01ABCD1234567890", 1000.0, Customer1);
 
         bank.Create_Account("NL02EFGH1234567890", 500.0, Customer2);
+
+        bank.Create_Account("NL03IJKL1234567890", 750.0, Customer3);
 
 //         Geld storten
 
@@ -39,5 +41,6 @@ public class Main {
         System.out.println(Bank.Find_Balance(Customer1));
         System.out.println(Person.getLeeftijd(Customer1));
         System.out.println(Bank.Find_Richest_Prick());
+        System.out.println(Bank.Bank_Dating_Service());
     }
 }
