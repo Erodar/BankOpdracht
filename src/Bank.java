@@ -8,7 +8,7 @@ public class Bank {
     /* create a hashmap that stores the account number
      * and the attached BankAccount object
      */
-    public HashMap<String, BankAccount> map = new HashMap<>();
+    public HashMap<String, BankAccount> AccountNumbsHashMap = new HashMap<>();
 
     /* Define value of currencies in a hashmap
      * for later use in the currency exchange method
@@ -30,7 +30,8 @@ public class Bank {
      */
     public void Create_Account(String Account_Number, Double Initial_Deposit, Person Owner) {
         BankAccount Account = new BankAccount(Account_Number, Initial_Deposit, Owner);
-        map.put(Account_Number, Account);
+        AccountNumbsHashMap.put(Account_Number, Account);
+        AllOwners.put(Owner, Account);
         BankAccount.transfer_save(Account_Number, Initial_Deposit, "Initial Deposit");
         AllOwners.put(Owner, Account);
     }
@@ -39,10 +40,10 @@ public class Bank {
      * If it doesn't exist, crashes.
      */
     public BankAccount getAccount(String Account_Number) {
-        if (map.get(Account_Number) == null) {
+        if (AccountNumbsHashMap.get(Account_Number) == null) {
             return new BankAccount(null, NaN, null);
         } else {
-            return map.get(Account_Number);
+            return AccountNumbsHashMap.get(Account_Number);
         }
     }
 
