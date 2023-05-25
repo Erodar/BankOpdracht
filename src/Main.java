@@ -35,5 +35,4 @@ public class Main {
         System.out.println(BankAccount.display_history("NL02EFGH1234567890"));
         System.out.println(BankAccount.display_history("NL01ABCD1234567890"));
     }
-
 }
