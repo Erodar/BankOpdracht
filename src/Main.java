@@ -26,6 +26,7 @@ public class Main {
 //         Saldo controleren
 
         System.out.println(bank.getAccount("NL01ABCD1234567890").getBalance());
+        System.out.println(bank.getAccount("NL03ABCD1234567890").getBalance());
 
         bank.transfer("NL02EFGH1234567890", "NL01ABCD1234567890", 250.0);
 

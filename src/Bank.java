@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import static java.lang.Double.NaN;
 
 public class Bank {
     //create a hashmap that stores the account number and the attached BankAccount object
@@ -23,10 +24,12 @@ public class Bank {
 
     //returns the BankAccount object attached to an account number. If it doesn't exist, crashes.
     public BankAccount getAccount(String Account_Number) {
-        try {
+        if (map.get(Account_Number) == null) {
+            System.out.println("Bank account does not exist!");
+            return new BankAccount("Does Not Exist", NaN);
+        }
+        else {
             return map.get(Account_Number);
-        } catch (NullPointerException e) {
-            throw new RuntimeException(e);
         }
     }
 

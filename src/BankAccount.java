@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import static java.lang.Double.NaN;
+
 public class BankAccount {
     //defining the two main attributes. AccountNumber is private and final since it never needs to be changed.
     //the balance can be edited in other classes too, though, since there's no reason to make it private.
@@ -17,29 +20,39 @@ public class BankAccount {
         this.AccountNumber = Account_Number;
         this.Balance = balance;
     }
+
     //commented out because not used; just returns the accountnumber of an object.
 //    public String getAccountNumber() {
 //        return AccountNumber;
 //    }
+
     //returns the balance of an object.
     public Double getBalance() {
-        return Balance;
+        try {
+            return Balance;
+        } catch (RuntimeException e) {
+            return (NaN);
+        }
     }
 
     //withdraws money from an account. if there isn't enough money it errors.
     public void withdraw (Double Withdraw_Amount) {
         if (this.Balance < Withdraw_Amount) {
-            throw new RuntimeException("You don't have enough money in the account.");
+            System.out.println("Your balance is too low. Transaction cancelled.");
         }
-        this.Balance -= Withdraw_Amount;
+        else {
+            this.Balance -= Withdraw_Amount;
+        }
     }
 
     //deposits money into an account. If the amount is negative it errors.
     public void deposit (Double Deposit_Amount) {
         if (Deposit_Amount < 0) {
-            throw new RuntimeException("You can't deposit a negative amount!");
+            System.out.println("You can't deposit a negative amount. Transaction cancelled.");
         }
-        this.Balance += Deposit_Amount;
+        else {
+            this.Balance += Deposit_Amount;
+        }
     }
 
     //i just used the constructor for a simple function that returns a bankaccount object as a string.
