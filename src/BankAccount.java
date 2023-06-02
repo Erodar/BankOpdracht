@@ -6,33 +6,28 @@ import java.util.Objects;
 import static java.lang.Double.NaN;
 
 public class BankAccount {
-    //defining the two main attributes. AccountNumber is private and final since it never needs to be changed.
-    //the balance can be edited in other classes too, though, since there's no reason to make it private.
     private final String AccountNumber;
     public Double Balance;
     public Person AccountOwner;
+    public AccountType Type;
 
-    //AllTransfers is a hashmap containing the account number and then a list of transfers.
-    //Each transfer is also stored as a list, so Transfers is a list of lists.
+    /*AllTransfers is a hashmap containing the account number and then a list of transfers.
+     *Each individual transfer is also stored as a list, so Transfers is a list of lists.
+     */
     public static HashMap<String, ArrayList<ArrayList<String>>> AllTransfers = new HashMap<>();
     public static ArrayList<ArrayList<String>> Transfers = new ArrayList<>();
 
-    //BankAccounts only have two attributes, the balance in the account and the account number.
-    public BankAccount(String Account_Number, Double balance, Person Owner) {
+    public BankAccount(String Account_Number, Double balance, Person Owner, AccountType accountType) {
         this.AccountNumber = Account_Number;
         this.Balance = balance;
-        AccountOwner = Owner;
+        this.AccountOwner = Owner;
+        this.Type = accountType;
     }
 
-    //commented out because not used; just returns the account number of an object.
-//    public String getAccountNumber() {
-//        return AccountNumber;
-//    }
 
-    //returns the balance of an object.
     public Double getBalance() {
         try {
-            return this.Balance;
+            return Math.floor(this.Balance * 100) / 100;
         } catch (RuntimeException e) {
             return (NaN);
         }
@@ -56,7 +51,6 @@ public class BankAccount {
         }
     }
 
-    // simple function that returns a BankAccount object as a string.
     @Override
     public String toString() {
         return "BankAccount{" +
@@ -64,6 +58,7 @@ public class BankAccount {
                 ", Balance=" + Balance +
                 '}';
     }
+
 
     /* first, creates Transfer as a list - this clears the existing object.
      * then uses a boolean as a flag, so we can see if an account already has an existing history.
@@ -88,10 +83,11 @@ public class BankAccount {
         AllTransfers.put(AccountNumber, Transfers);
     }
 
-    //simply returns the list of lists attached to an account number from the hashmap.
-    //otherwise, returns an empty list of lists.
+    /* simply returns the Transfers-list attached to an account number from the hashmap.
+     * if none are found, returns an empty list of lists.
+     */
     public static ArrayList<ArrayList<String>> display_history(String AccountNumber) {
-        ArrayList<ArrayList<String>> Account_History = new ArrayList<>();
+        ArrayList<ArrayList<String>> Empty_List = new ArrayList<>();
         for (Map.Entry<String, ArrayList<ArrayList<String>>> set : AllTransfers.entrySet()) {
             {
                 if (Objects.equals(set.getKey(), AccountNumber)) {
@@ -99,7 +95,7 @@ public class BankAccount {
                 }
             }
         }
-        return Account_History;
+        return Empty_List;
     }
 }
 

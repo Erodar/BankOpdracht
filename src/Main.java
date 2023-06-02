@@ -8,11 +8,11 @@ public class Main {
         Person Customer3 = new Person("Mick", "1995-08-26", "grey", 1.76, "Single");
         // Nieuwe rekeningen aanmaken
 
-        bank.Create_Account("NL01ABCD1234567890", 1000.0, Customer1);
+        bank.Create_Account("NL01ABCD1234567890", 1000.0, Customer1, AccountType.BANKACCOUNT);
 
-        bank.Create_Account("NL02EFGH1234567890", 500.0, Customer2);
+        bank.Create_Account("NL02EFGH1234567890", 500.0, Customer2, AccountType.BANKACCOUNT);
 
-        bank.Create_Account("NL03IJKL1234567890", 750.0, Customer3);
+        bank.Create_Account("NL03IJKL1234567890", 750.0, Customer3, AccountType.SAVINGSACCOUNT);
 
 //         Geld storten
 
@@ -29,18 +29,24 @@ public class Main {
 
 //         Saldo controleren
 
-        System.out.println(bank.getAccount("NL01ABCD1234567890").getBalance());
-        System.out.println(bank.getAccount("NL03ABCD1234567890").getBalance());
+        System.out.println(Bank.getAccount("NL01ABCD1234567890").getBalance());
+        System.out.println(Bank.getAccount("NL03IJKL1234567890").getBalance());
 
         bank.transfer("NL02EFGH1234567890", "NL01ABCD1234567890", 250.0);
 
-        System.out.println(bank.currency_exchange("NL01ABCD1234567890", "Won"));
 
         System.out.println(BankAccount.display_history("NL02EFGH1234567890"));
         System.out.println(BankAccount.display_history("NL01ABCD1234567890"));
-        System.out.println(Bank.Find_Balance(Customer1));
-        System.out.println(Person.getLeeftijd(Customer1));
         System.out.println(Bank.Find_Richest_Prick());
-        System.out.println(Bank.Bank_Dating_Service());
+        System.out.println(Bank.currency_exchange("NL01ABCD1234567890", "Yen"));
+        System.out.println(Bank.Find_Balance(Customer3));
+        System.out.println(Bank.Find_Balance(Customer2));
+        System.out.println(Bank.getAccount("NL03IJKL1234567890").getBalance());
+        ((SavingsAccount)Bank.getAccount("NL03IJKL1234567890")).addInterest();
+        System.out.println(Bank.getAccount("NL03IJKL1234567890").getBalance());
+        ((SavingsAccount)Bank.getAccount("NL03IJKL1234567890")).setInterestRate(10);
+        ((SavingsAccount)Bank.getAccount("NL03IJKL1234567890")).addInterest();
+        System.out.println(Bank.getAccount("NL03IJKL1234567890").getBalance());
+
     }
 }
